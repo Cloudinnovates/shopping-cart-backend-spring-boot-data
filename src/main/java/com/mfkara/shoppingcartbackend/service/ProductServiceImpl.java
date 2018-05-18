@@ -19,6 +19,9 @@ public class ProductServiceImpl implements ProductService {
 	@Autowired
 	CategoryRepository categoryRepository;
 
+	@Autowired
+	PriceNewsService priceNewsService;
+
 	@Override
 	public Product getOne(Long id) {
 		// TODO Auto-generated method stub
@@ -29,7 +32,7 @@ public class ProductServiceImpl implements ProductService {
 	public List<Product> getAll() {
 
 		List<Product> products = new ArrayList<>();
-		for (Product p : productRepository.findAll())
+		for (Product p : productRepository.findAllByOrderByProductIdAsc())
 			products.add(p);
 
 		return products;
@@ -37,13 +40,36 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<Product> getProductsByCategory(String SeoUrl) {
-		
-		Category category=categoryRepository.findOneBySeoUrl(SeoUrl);
+
+		Category category = categoryRepository.findOneBySeoUrl(SeoUrl);
 		List<Product> products = new ArrayList<>();
 		for (Product p : productRepository.findByCategory(category))
 			products.add(p);
 
 		return products;
+	}
+
+	@Override
+	public void addProduct(Product product) {
+
+		boolean discountStatus = false;
+		if (product.getProductId() > 0)
+			discountStatus = checkDiscount(product);
+		productRepository.save(product);
+		try {
+			if (discountStatus)
+				priceNewsService.notifyDiscount(product);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("asd");
+		}
+	}
+
+	private boolean checkDiscount(Product product) {
+		Product p = productRepository.findOne(product.getProductId());
+		if (p.getUnitPrice() - product.getUnitPrice() > 0)
+			return true;
+		return false;
 	}
 
 }

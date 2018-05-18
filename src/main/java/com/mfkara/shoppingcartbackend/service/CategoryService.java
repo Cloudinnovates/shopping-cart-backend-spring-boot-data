@@ -6,5 +6,5 @@ import com.mfkara.shoppingcartbackend.model.Category;
 
 public interface CategoryService {
 
-	public List<Category> getAll();	
+	public List<Category> getAll();
 }

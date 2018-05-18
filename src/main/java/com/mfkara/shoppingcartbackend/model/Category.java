@@ -1,14 +1,9 @@
 package com.mfkara.shoppingcartbackend.model;
 
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 @Entity
 public class Category {
@@ -19,28 +14,27 @@ public class Category {
 	private String SeoUrl;
 
 	private String CategoryName;
-	
-/*	@OneToMany(fetch = FetchType.LAZY, mappedBy = "category", cascade = CascadeType.ALL)
-	private Set<Product> products;
 
-*/
+	/*
+	 * @OneToMany(fetch = FetchType.LAZY, mappedBy = "category", cascade =
+	 * CascadeType.ALL) private Set<Product> products;
+	 * 
+	 */
 	public Category() {
 		// TODO Auto-generated constructor stub
 	}
+
 	public Category(String seoUrl, String categoryName) {
 		super();
 		SeoUrl = seoUrl;
 		CategoryName = categoryName;
 	}
 
-	
-/*	public Set<Product> getProducts() {
-		return products;
-	}
-
-	public void setProducts(Set<Product> products) {
-		this.products = products;
-	}*/
+	/*
+	 * public Set<Product> getProducts() { return products; }
+	 * 
+	 * public void setProducts(Set<Product> products) { this.products = products; }
+	 */
 
 	public String getSeoUrl() {
 		return SeoUrl;
@@ -68,7 +62,7 @@ public class Category {
 
 	@Override
 	public String toString() {
-		return "Category [CategoryId=" + CategoryId + ", SeoUrl=" + SeoUrl + ", CategoryName=" + CategoryName+ "]";
+		return "Category [CategoryId=" + CategoryId + ", SeoUrl=" + SeoUrl + ", CategoryName=" + CategoryName + "]";
 	}
 
 }

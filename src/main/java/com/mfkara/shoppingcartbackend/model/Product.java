@@ -1,7 +1,6 @@
 package com.mfkara.shoppingcartbackend.model;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,13 +13,22 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long productId;
 
-	@ManyToOne( )
+	@ManyToOne()
 	@JoinColumn(name = "categoryId", nullable = false)
 	private Category category;
+
+	private String quantityPerUnit;
+
+	private String productName;
+
+	private int unitPrice;
+
+	private int unitsInStock;
 
 	public Product() {
 		// TODO Auto-generated constructor stub
 	}
+
 	public Product(Category category, String quantityPerUnit, String productName, int unitPrice, int unitsInStock) {
 		super();
 		this.category = category;
@@ -29,13 +37,6 @@ public class Product {
 		this.unitPrice = unitPrice;
 		this.unitsInStock = unitsInStock;
 	}
-	private String quantityPerUnit;
-
-	private String productName;
-
-	private int unitPrice;
-
-	private int unitsInStock;
 
 	public int getUnitsInStock() {
 		return unitsInStock;
